@@ -1,3 +1,4 @@
 .idea/
 *.iml
-src/output.txt
+out/
+**/output.txt
