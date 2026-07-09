@@ -25,11 +25,12 @@ public class Circle {
     }
 
     public static boolean checkIntersection(ArrayList<Circle> circles) {
-        if (maxR(circles) <= calcDistX(circles.get(0), circles.get(1)) + minR(circles) || maxR(circles) <= calcDistY(circles.get(0), circles.get(1)) + minR(circles)) {
-            return true;
-        } else {
-            return false;
-        }
+        Circle circle1 = circles.get(0);
+        Circle circle2 = circles.get(1);
+
+        double dist = findDist(circles);
+
+        return abs(circle1.r - circle2.r) <= dist && dist <= abs(circle1.r + circle2.r);
     }
 
     public static double maxR(ArrayList<Circle> circles) {
@@ -42,11 +43,13 @@ public class Circle {
 
     public static double calcDistX(Circle circle1,Circle circle2) {
         double distX = (double) abs(circle2.x - circle1.x);
+        System.out.println(distX);
         return distX;
     }
 
     public static double calcDistY(Circle circle1,Circle circle2) {
         double distY = (double) abs(circle2.y - circle1.y);
+        System.out.println(distY);
         return distY;
     }
 
