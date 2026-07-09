@@ -1,5 +1,6 @@
+package src1;
+
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 import static java.lang.Math.*;
 import static java.lang.Math.pow;
@@ -24,6 +25,13 @@ public class Circle {
         return dist;
     }
 
+    public static double findDistBetweenCenters(Circle circle1, Circle circle2) {
+        double distX = calcDistX(circle1, circle2);
+        double distY = calcDistY(circle1, circle2);
+        double dist = sqrt(pow(distX, 2) + pow(distY, 2));
+        return dist;
+    }
+
     public static boolean checkIntersection(ArrayList<Circle> circles) {
         Circle circle1 = circles.get(0);
         Circle circle2 = circles.get(1);
@@ -33,12 +41,10 @@ public class Circle {
         return abs(circle1.r - circle2.r) <= dist && dist <= abs(circle1.r + circle2.r);
     }
 
-    public static double maxR(ArrayList<Circle> circles) {
-        return (double) max(circles.get(0).r, circles.get(1).r);
-    }
 
-    public static double minR(ArrayList<Circle> circles) {
-        return (double) min(circles.get(0).r, circles.get(1).r);
+    public static boolean checkIntersection(Circle circle1, Circle circle2) {
+        double dist = findDistBetweenCenters(circle1, circle2);
+        return abs(circle1.r - circle2.r) <= dist && dist <= abs(circle1.r + circle2.r);
     }
 
     public static double calcDistX(Circle circle1,Circle circle2) {

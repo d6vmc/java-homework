@@ -21,6 +21,10 @@ public class Coordinates {
         return dist;
     }
 
+    public double distTo(Coordinates B) {
+        return sqrt(pow(x-B.x, 2) + pow(y-B.y, 2));
+    }
+
     public static double calcDistX(Coordinates coordA, Coordinates coordB) {
         double distX = (double) abs(coordB.x - coordA.x);
         System.out.println(distX);
@@ -31,14 +35,5 @@ public class Coordinates {
         double distY = (double) abs(coordB.y - coordA.y);
         System.out.println(distY);
         return distY;
-    }
-
-    public static boolean checkIntersectionCoords(Coordinates coordA, Coordinates coordB, int L) {
-        double dist = findDist(coordA, coordB);
-        if (dist <= (double) L) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

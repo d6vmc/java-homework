@@ -11,10 +11,10 @@ public class Main {
         Path path = Path.of("/Users/devmc/IdeaProjects/Homework/homework-01-grasshopper/src/input.txt");
         List<String> lines = readFile(path);
         Integer[] firstLine = getFirstLine(lines);
-        Coordinates[] coords = splitFile(lines, firstLine[0]);
-        Coordinates coordB = new Coordinates(firstLine[1], firstLine[2]);
-        int L = firstLine[3];
-        findAndCheck(coords, coordB, L);
+        int pathLen = firstLine[0];
+        Coordinates[] coords = parseCoords(lines, pathLen);
+        Frog frog = new Frog(firstLine[1], firstLine[2], firstLine[3]);
+        findAndCheck(coords, frog);
 
     }
 
@@ -29,7 +29,7 @@ public class Main {
         }
     }
 
-    public static Coordinates[] splitFile(List<String> lines, int N) {
+    public static Coordinates[] parseCoords(List<String> lines, int N) {
         Coordinates[] coords = new Coordinates[N];
         for (int i = 1; i <= N; i++) {
             String line = lines.get(i);
@@ -58,9 +58,9 @@ public class Main {
         return line;
     }
 
-    public static void findAndCheck(Coordinates[] coords, Coordinates coordB, int L) {
+    public static void findAndCheck(Coordinates[] coords, Frog frog) {
         for (int i = 0; i < coords.length; i++) {
-            boolean res = Coordinates.checkIntersectionCoords(coords[i], coordB, L);
+            boolean res = frog.checkRange(coords[i]);
             if (res) {
                 writeResult(String.valueOf(i+1));
                 return;
