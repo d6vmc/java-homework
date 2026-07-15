@@ -6,8 +6,8 @@ import static java.lang.Math.*;
 import static java.lang.Math.abs;
 
 public class Coordinates {
-    int x;
-    int y;
+    protected int x;
+    protected int y;
 
     public Coordinates(int x, int y) {
         this.x = x;
@@ -35,5 +35,13 @@ public class Coordinates {
         double distY = (double) abs(coordB.y - coordA.y);
         System.out.println(distY);
         return distY;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

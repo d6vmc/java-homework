@@ -15,7 +15,6 @@ public class Main {
         Coordinates[] coords = parseCoords(lines, pathLen);
         Frog frog = new Frog(firstLine[1], firstLine[2], firstLine[3]);
         findAndCheck(coords, frog);
-
     }
 
     public static List<String> readFile(Path path) {
