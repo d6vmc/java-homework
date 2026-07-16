@@ -1,4 +1,6 @@
-import src.Coordinates;
+package Triangle;
+
+import homework_01_grasshopper.Coordinates;
 
 public class DemoT {
     static void main(String[] args) {

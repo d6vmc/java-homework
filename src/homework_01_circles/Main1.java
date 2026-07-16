@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main1 {
     public static void main(String[] args) {
-        Path path = Path.of("/Users/devmc/IdeaProjects/Homework/homework-01-circles/src/input.txt");
+        Path path = Path.of("/Users/devmc/IdeaProjects/Homework/homework_01_circles/src/input.txt");
         List<String> lines = readFile(path);
         ArrayList<Circle> circles = splitFile(lines);
         findDistAndCheck(circles);

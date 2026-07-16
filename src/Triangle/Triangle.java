@@ -1,4 +1,6 @@
-import src.Coordinates;
+package Triangle;
+
+import homework_01_grasshopper.Coordinates;
 
 public class Triangle {
     Point A;
@@ -20,7 +22,7 @@ public class Triangle {
 
     @Override
     public String toString() {
-        return "Triangle{" +
+        return "Triangle.Triangle{" +
                 "A=" + A +
                 ", B=" + B +
                 ", C=" + C +
