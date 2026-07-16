@@ -1,4 +1,4 @@
-package src1;
+package homework_01_circles;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,9 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.*;
-
-public class Main {
+public class Main1 {
     public static void main(String[] args) {
         Path path = Path.of("/Users/devmc/IdeaProjects/Homework/homework-01-circles/src/input.txt");
         List<String> lines = readFile(path);

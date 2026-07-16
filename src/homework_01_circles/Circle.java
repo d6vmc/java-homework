@@ -1,4 +1,4 @@
-package src1;
+package homework_01_circles;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package src1;
+package homework_01_circles;
 
-import src.Coordinates;
+import homework_01_grasshopper.Coordinates;
 
 import static java.lang.Math.abs;
 

@@ -1,6 +1,4 @@
-package src;
-
-import java.util.ArrayList;
+package homework_01_grasshopper;
 
 import static java.lang.Math.*;
 import static java.lang.Math.abs;

@@ -1,4 +1,4 @@
-package src;
+package homework_01_grasshopper;
 
 public class Frog {
     Coordinates place;
