@@ -9,10 +9,10 @@ import java.util.List;
 public class Main {
     static void main(String[] args) {
         List<String> lines = readFile();
-        ArrayList<Integer> firstLine = getLine(lines, 0);
-        ArrayList<Integer> secondLine = getLine(lines, 1);
-        int maxWeight = firstLine.get(1);
-        sortPeople(maxWeight, secondLine);
+        ArrayList<Integer> people = getLine(lines, 1);
+        int maxWeight = getLine(lines, 0).get(1);
+        int count = countKayaks3(maxWeight, people);
+        writeResult(String.valueOf(count));
     }
 
     public static List<String> readFile() {
@@ -37,42 +37,88 @@ public class Main {
         return line;
     }
 
-    public static void sortPeople(int maxWeight, ArrayList<Integer> secondLine) {
+    public static int countKayaks(int maxWeight, ArrayList<Integer> people) {
         int counter = 0;
-        while (!secondLine.isEmpty()) {
-            int max = findMax(secondLine);
-            if (secondLine.size() == 1) {
-                secondLine.remove(Integer.valueOf(max));
+        while (!people.isEmpty()) {
+            int max = findMax(people);
+            if (people.size() == 1) {
+                people.remove(Integer.valueOf(max));
                 counter++;
                 break;
             }
-            int min = findMin(secondLine);
+            int min = findMin(people);
             if (max + min <= maxWeight) {
-                secondLine.remove(Integer.valueOf(max));
-                secondLine.remove(Integer.valueOf(min));
+                people.remove(Integer.valueOf(max));
+                people.remove(Integer.valueOf(min));
             } else {
-                secondLine.remove(Integer.valueOf(max));
+                people.remove(Integer.valueOf(max));
             }
             counter++;
         }
-        writeResult(String.valueOf(counter));
+        return counter;
     }
 
-    public static int findMin(ArrayList<Integer> line) {
+    public static int countKayaks2(int maxWeight, ArrayList<Integer> people) {
+        people.sort(null);
+        int counter1 = 0;
+        while (!people.isEmpty()) {
+            int max = people.getLast();
+            if (people.size() == 1) {
+                people.removeFirst();
+                counter1++;
+                break;
+            }
+            int min = people.getFirst();
+            if (max + min <= maxWeight) {
+                people.removeLast();
+                people.removeFirst();
+            } else {
+                people.removeLast();
+            }
+            counter1++;
+        }
+        return counter1;
+    }
+
+    public static int countKayaks3(int maxWeight, ArrayList<Integer> people) {
+        people.sort(null);
+        int counter1 = 0;
+        int i = 0;
+        int j = people.size()-1;
+        while (i<=j) {
+            if (i == j) {
+                i++;
+                counter1++;
+            }
+            int max = people.get(j);
+            int min = people.get(i);
+
+            if (max + min <= maxWeight) {
+                j--;
+                i++;
+            } else {
+                j--;
+            }
+            counter1++;
+        }
+        return counter1;
+    }
+
+    public static int findMin(ArrayList<Integer> people) {
         int min = 15001;
-        for (int i = 0; i < line.size(); i++) {
-            if (line.get(i) < min) {
-                min = line.get(i);
+        for (int i = 0; i < people.size(); i++) {
+            if (people.get(i) < min) {
+                min = people.get(i);
             }
         }
         return min;
     }
 
-    public static int findMax(ArrayList<Integer> line) {
+    public static int findMax(ArrayList<Integer> people) {
         int max = 0;
-        for (int i = 0; i < line.size(); i++) {
-            if (line.get(i) > max) {
-                max = line.get(i);
+        for (int i = 0; i < people.size(); i++) {
+            if (people.get(i) > max) {
+                max = people.get(i);
             }
         }
         return max;
@@ -87,6 +133,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-
-
 }
