@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -13,6 +14,8 @@ public class Main {
         ArrayList<Integer> intersections = getIntersections(lines);
         String result = calcCountString(intersections);
         writeResult(result);
+        int[] res = calcCountArray(intersections);
+        System.out.println(Arrays.toString(res));
     }
 
     public static List<String> readFile() {
@@ -56,6 +59,16 @@ public class Main {
 
         }
         return res.toString().trim();
+    }
+
+    public static int[] calcCountArray(ArrayList<Integer> intersections) {
+        int max = intersections.stream().max(Integer::compareTo).get();
+        int[] res = new int[max];
+
+        for (int node : intersections) {
+            res[node-1]++;
+        }
+        return res;
     }
 
     public static void writeResult(String res) {

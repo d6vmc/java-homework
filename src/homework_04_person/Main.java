@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
     static void main(String[] args) {
@@ -20,6 +23,21 @@ public class Main {
                 }
             }
         }
+
+
+        for (Person person : personsMath) {
+            if (personsPhysics.contains(person)) {
+                System.out.println(person + " сдает и физику, и математику");
+            }
+        }
+
+        HashSet<Person> math = new HashSet<>(personsMath);
+        HashSet<Person> physics = new HashSet<>(personsPhysics);
+        physics.retainAll(math);
+        System.out.println(physics);
+
+        Set<Person> intersection = personsMath.stream().filter(personsPhysics::contains).collect(Collectors.toSet());
+        System.out.println(intersection);
     }
 
     public static List<String> readFile(String name) {
