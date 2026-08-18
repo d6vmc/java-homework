@@ -5,18 +5,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.List;
 
 public class Main {
     static void main(String[] args) {
         ArrayList<Integer> players = parsePlayers();
-        System.out.println(players);
-        ArrayList<Integer> maxPlayers = findMaxPlayers(players);
-        System.out.println(maxPlayers);
-        int max = maxPlayers.stream().max(Integer::compareTo).orElse(0);
-        writeResult(String.valueOf(max));
-    }
+        ArrayList<Integer> sumList = findAllSumPP(players);
+        int max = sumList.stream().max(Integer::compareTo).orElse(0);
+        System.out.println(max);
+        int max2 = findAllSum(players);
+        System.out.println(max2);
 
+        writeResult(String.valueOf(max));
+
+
+    }
 
     public static List<String> readFile() {
         Path path = Path.of("/Users/devmc/IdeaProjects/Homework/src/homework_06_team/input.txt");
@@ -40,7 +44,7 @@ public class Main {
         return players;
     }
 
-    public static ArrayList<Integer> findMaxPlayers(ArrayList<Integer> players) {
+    public static ArrayList<Integer> findAllSumPP(ArrayList<Integer> players) {
         ArrayList<Integer> maxRes = new ArrayList<>();
         players.sort(Comparator.reverseOrder());
         System.out.println(players);
@@ -60,6 +64,31 @@ public class Main {
         }
         return maxRes;
     }
+
+    public static int findAllSum(ArrayList<Integer> players) {
+        players.sort(null);
+
+        int left = 0;
+        int right = 0;
+        int maxSum = 0;
+        int curSum = 0;
+
+        while (right < players.size()) {
+            if (right - left + 1 <= 2) {
+                curSum+=players.get(right);
+                right++;
+            } else if (players.get(right) <= players.get(left) + players.get(left+1)) {
+                curSum+=players.get(right);
+                right++;
+            } else {
+                curSum-=players.get(left);
+                left++;
+            }
+            maxSum = Math.max(maxSum, curSum);
+        }
+        return maxSum;
+    }
+
 
 
     public static void writeResult(String res) {
