@@ -18,8 +18,6 @@ public class Main {
         System.out.println(max2);
 
         writeResult(String.valueOf(max));
-
-
     }
 
     public static List<String> readFile() {
@@ -75,15 +73,21 @@ public class Main {
 
         while (right < players.size()) {
             if (right - left + 1 <= 2) {
+                //Команда маленькая, автоматически зачислить кандидата
                 curSum+=players.get(right);
                 right++;
-            } else if (players.get(right) <= players.get(left) + players.get(left+1)) {
-                curSum+=players.get(right);
-                right++;
-            } else {
-                curSum-=players.get(left);
-                left++;
             }
+            else //Команда уже не меньше 2
+                if (players.get(right) <= players.get(left) + players.get(left+1)) {
+                    //Зачислить кандидата в команду
+                    curSum+=players.get(right);
+                    right++;
+                }
+                else {
+                    //Выгнать самого слабого из команды
+                    curSum-=players.get(left);
+                    left++;
+                }
             maxSum = Math.max(maxSum, curSum);
         }
         return maxSum;
