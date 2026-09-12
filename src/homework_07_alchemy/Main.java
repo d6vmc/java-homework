@@ -8,10 +8,14 @@ import java.util.*;
 public class Main {
     static void main(String[] args) {
         List<String> lines = readFile();
+        int m = Integer.parseInt(lines.get(0).trim());
+        String start = lines.get(m + 1).trim();
+        String target = lines.get(m + 2).trim();
 
         Map<String, List<String>> graph = parseStrings(lines);
-        int count = countTurns(graph, lines);
-        writeResult(String.valueOf(count));
+        String path = findPath(graph, start, target);
+        System.out.println(path);
+        //writeResult(String.valueOf(count));
     }
 
     public static List<String> readFile() {
@@ -51,12 +55,7 @@ public class Main {
         return graph;
     }
 
-    public static int countTurns(Map<String, List<String>> graph, List<String> lines) {
-        int m = Integer.parseInt(lines.get(0).trim());
-
-        String start = lines.get(m + 1).trim();
-        String target = lines.get(m + 2).trim();
-
+    public static int countTurns(Map<String, List<String>> graph, String start, String target) {
         Set<String> visited = new HashSet<>();
         Queue<String> queue = new LinkedList<>();
         Map<String, String> parentMap = new HashMap<>();
@@ -98,6 +97,49 @@ public class Main {
         return reactions;
     }
 
+    public static String findPath(Map<String, List<String>> graph, String start, String target) {
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        Map<String, String> parentMap = new HashMap<>();
+
+        visited.add(start);
+        queue.add(start);
+        parentMap.put(start, null);
+
+        boolean pathfound = false;
+
+        while (!queue.isEmpty()) {
+            String currentNode = queue.poll();
+
+            if (Objects.equals(currentNode, target)) {
+                pathfound = true;
+                break;
+            }
+
+            List<String> neighbors = graph.getOrDefault(currentNode, Collections.emptyList());
+            for (String neighbor : neighbors) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    parentMap.put(neighbor, currentNode);
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        if (!pathfound) {
+            return null;
+        }
+
+        String reactions = target;
+        String current = target;
+        while (!current.equals(start)) {
+            current = parentMap.get(current);
+            System.out.println(current);
+            reactions = current + " -> " + reactions;
+        }
+        return reactions;
+    }
+
     public static void writeResult(String res) {
         Path path = Path.of("/Users/devmc/IdeaProjects/Homework/src/homework_07_alchemy/output.txt");
         try {
@@ -108,6 +150,3 @@ public class Main {
         }
     }
 }
-
-
-
